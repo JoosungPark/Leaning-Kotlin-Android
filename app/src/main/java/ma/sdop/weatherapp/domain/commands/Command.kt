@@ -1,4 +1,4 @@
-package ma.sdop.weatherapp.domain
+package ma.sdop.weatherapp.domain.commands
 
 /**
  * Created by parkjoosung on 2017. 4. 19..

@@ -1,2 +1,2 @@
-# Leaning-Kotlin-Android
-Leaning Kotlin language with Simple Android app.
+# Learning-Kotlin-Android
+Learning Kotlin language with Simple Android app.

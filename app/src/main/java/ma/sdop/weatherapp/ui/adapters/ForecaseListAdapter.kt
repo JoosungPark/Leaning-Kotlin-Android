@@ -10,11 +10,13 @@ import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_forecast.view.*
 import ma.sdop.weatherapp.R
 import ma.sdop.weatherapp.domain.model.Forecast
 import ma.sdop.weatherapp.domain.model.ForecastList
 import ma.sdop.weatherapp.ui.utils.ctx
 import org.jetbrains.anko.find
+import kotlin.reflect.KProperty
 
 /**
  * Created by parkjoosung on 2017. 4. 18..
@@ -33,23 +35,16 @@ class ForecastListAdapter(val weekForecast: ForecastList, val itemClick: (Foreca
     }
 
     class ViewHolder(view: View, val itemClick: (Forecast) -> Unit) : RecyclerView.ViewHolder(view) {
-        private val iconView = view.find<ImageView>(R.id.icon)
-        private val dateView = view.find<TextView>(R.id.date)
-        private val descriptionView = view.find<TextView>(R.id.description)
-        private val maxTemperatureView = view.find<TextView>(R.id.maxTemperature)
-        private val minTemperatureView = view.find<TextView>(R.id.minTemperature)
-        
         fun bindForecast(forecast: Forecast) {
             with(forecast) {
-                Picasso.with(itemView.ctx).load(iconUrl).into(iconView)
-                dateView.text = date
-                descriptionView.text = description
-                maxTemperatureView.text = "$high"
-                minTemperatureView.text = "$low"
+                Picasso.with(itemView.ctx).load(iconUrl).into(itemView.icon)
+                itemView.date.text = date
+                itemView.description.text = description
+                itemView.maxTemperature.text = "$high"
+                itemView.minTemperature.text = "$low"
                 itemView.setOnClickListener { itemClick(this) }
             }
         }
-
     }
 
 

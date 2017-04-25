@@ -12,7 +12,7 @@ object CityForecastTable {
 }
 
 object DayForecastTable {
-    val Name = "DayForecast"
+    val NAME = "DayForecast"
     val ID = "_id"
     val DATE = "date"
     val DESCRIPTION = "description"

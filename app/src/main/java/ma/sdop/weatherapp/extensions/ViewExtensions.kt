@@ -1,4 +1,4 @@
-package ma.sdop.weatherapp.ui.utils
+package ma.sdop.weatherapp.extensions
 
 import android.content.Context
 import android.view.View

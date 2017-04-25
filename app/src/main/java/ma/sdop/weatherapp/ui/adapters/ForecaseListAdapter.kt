@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_forecast.view.*
 import ma.sdop.weatherapp.R
 import ma.sdop.weatherapp.domain.model.Forecast
 import ma.sdop.weatherapp.domain.model.ForecastList
-import ma.sdop.weatherapp.ui.utils.ctx
+import ma.sdop.weatherapp.extensions.ctx
 import org.jetbrains.anko.find
 import kotlin.reflect.KProperty
 

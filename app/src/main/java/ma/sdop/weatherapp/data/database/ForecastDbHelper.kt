@@ -1,6 +1,8 @@
 package ma.sdop.weatherapp.data.database
 
+import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import ma.sdop.weatherapp.data.Forecast
 import ma.sdop.weatherapp.ui.App
 import org.jetbrains.anko.db.*
 
@@ -8,7 +10,7 @@ import org.jetbrains.anko.db.*
  * Created by parkjoosung on 2017. 4. 20..
  */
 // Example of table creation.
-class ForecastDbHelper() : ManagedSQLiteOpenHelper(App.instance, ForecastDbHelper.DB_NAME, null, ForecastDbHelper.DB_VERSION) {
+class ForecastDbHelper(ctx: Context = App.instance) : ManagedSQLiteOpenHelper(ctx, ForecastDbHelper.DB_NAME, null, ForecastDbHelper.DB_VERSION) {
     companion object {
         val DB_NAME = "forecast.db"
         val DB_VERSION = 1
@@ -30,8 +32,6 @@ class ForecastDbHelper() : ManagedSQLiteOpenHelper(App.instance, ForecastDbHelpe
                 DayForecastTable.ICON_URL to TEXT,
                 DayForecastTable.CITY_ID to INTEGER
                 )
-
-        val pair = 1 to toString()
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

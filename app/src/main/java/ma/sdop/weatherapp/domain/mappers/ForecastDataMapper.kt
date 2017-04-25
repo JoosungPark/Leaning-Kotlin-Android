@@ -1,7 +1,7 @@
 package ma.sdop.weatherapp.domain.mappers
 
-import ma.sdop.weatherapp.data.Forecast
-import ma.sdop.weatherapp.data.ForecastResult
+import ma.sdop.weatherapp.data.server.Forecast
+import ma.sdop.weatherapp.data.server.ForecastResult
 import ma.sdop.weatherapp.domain.model.ForecastList
 import java.text.DateFormat
 import java.util.*
@@ -10,11 +10,11 @@ import java.util.concurrent.TimeUnit
 import ma.sdop.weatherapp.domain.model.Forecast as ModelForecast
 
 class ForecastDataMapper {
-    fun convertFromDataModel(forecast: ForecastResult): ForecastList {
-        return ForecastList(forecast.city.name, forecast.city.country, convertForecastLstToDomain(forecast.list))
+    fun convertFromDataModel(zipCode: Long, forecast: ForecastResult) = with(forecast) {
+        ForecastList(zipCode, city.name, city.country, convertForecastLstToDomain(list))
     }
 
-    private fun convertForecastLstToDomain(list: List<Forecast>): List<ma.sdop.weatherapp.domain.model.Forecast> {
+    private fun convertForecastLstToDomain(list: List<Forecast>): List<ModelForecast> {
         // We can loop over the collection that easily and return a new list with the converted items.
         // Kotlin provides a good set of functional operations over list, which apply an operation for all the items in a list and transform them in any way.
         return list.mapIndexed { i, forecast ->
@@ -23,13 +23,8 @@ class ForecastDataMapper {
         }
     }
 
-    private fun convertForecastItemToDomain(forecast: Forecast): ma.sdop.weatherapp.domain.model.Forecast {
-        return ma.sdop.weatherapp.domain.model.Forecast(convertDate(forecast.dt), forecast.description, forecast.temp.max.toInt(), forecast.temp.min.toInt(), generateIconUrl(forecast.icon))
-    }
-
-    private fun convertDate(date: Long): String {
-        val df = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault())
-        return df.format(date)
+    private fun convertForecastItemToDomain(forecast: Forecast) = with(forecast) {
+        ModelForecast(dt, description, temp.max.toInt(), temp.min.toInt(), generateIconUrl(icon))
     }
 
     private fun generateIconUrl(iconCode: String): String = "http://openweathermap.org/img/w/$iconCode.png"

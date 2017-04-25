@@ -2,7 +2,7 @@ package ma.sdop.weatherapp.data.database
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import ma.sdop.weatherapp.data.Forecast
+import ma.sdop.weatherapp.data.server.Forecast
 import ma.sdop.weatherapp.ui.App
 import org.jetbrains.anko.db.*
 
@@ -23,7 +23,7 @@ class ForecastDbHelper(ctx: Context = App.instance) : ManagedSQLiteOpenHelper(ct
                 CityForecastTable.CITY to TEXT,
                 CityForecastTable.COUNTRY to TEXT)
 
-        db.createTable(DayForecastTable.Name, true,
+        db.createTable(DayForecastTable.NAME, true,
                 DayForecastTable.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
                 DayForecastTable.DATE to INTEGER,
                 DayForecastTable.DESCRIPTION to TEXT,
@@ -36,7 +36,7 @@ class ForecastDbHelper(ctx: Context = App.instance) : ManagedSQLiteOpenHelper(ct
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.dropTable(CityForecastTable.NAME, true)
-        db.dropTable(DayForecastTable.Name, true)
+        db.dropTable(DayForecastTable.NAME, true)
         onCreate(db)
     }
 }

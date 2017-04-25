@@ -1,4 +1,4 @@
-package ma.sdop.weatherapp.data
+package ma.sdop.weatherapp.data.server
 
 /**
  * Created by parkjoosung on 2017. 4. 19..

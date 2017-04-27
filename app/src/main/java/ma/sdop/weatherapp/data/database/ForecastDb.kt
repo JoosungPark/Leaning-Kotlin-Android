@@ -27,7 +27,9 @@ class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.insta
 
     override fun requestDayForecast(id: Long): Forecast? = forecastDbHelper.use {
         val forecast = select(DayForecastTable.NAME).byId(id).parseOpt { DayForecast(HashMap(it)) }
-        if ( forecast != null ) dataMapper.convertDayToDomain(forecast) else null
+//        if ( forecast != null ) dataMapper.convertDayToDomain(forecast) else null
+
+        forecast?.let { dataMapper.convertDayToDomain(it) }
     }
 
     fun saveForecast(forecast: ForecastList) = forecastDbHelper.use {
@@ -40,5 +42,6 @@ class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.insta
         }
     }
 
+    inline fun <T, R> with(receiver: T, f: T.() -> R): R = receiver.f()
 
 }

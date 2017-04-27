@@ -1,15 +1,17 @@
 package ma.sdop.weatherapp.domain.commands
 
-import ma.sdop.weatherapp.data.server.ForecastRequest
-import ma.sdop.weatherapp.domain.mappers.ForecastDataMapper
+import ma.sdop.weatherapp.domain.datasource.ForecastProvider
 import ma.sdop.weatherapp.domain.model.ForecastList
 
 /**
  * Created by parkjoosung on 2017. 4. 19..
  */
-class RequestForecastCommand(private val zipCode: Long) : Command<ForecastList> {
+class RequestForecastCommand(val zipCode: Long, val forecastProvider: ForecastProvider = ForecastProvider()) : Command<ForecastList> {
+    companion object {
+        val DAYS = 7
+    }
+
     override fun execute(): ForecastList {
-        val forecastRequest = ForecastRequest(zipCode)
-        return ForecastDataMapper().convertFromDataModel(zipCode, forecastRequest.execute())
+        return forecastProvider.requestByZipCode(zipCode, DAYS)
     }
 }

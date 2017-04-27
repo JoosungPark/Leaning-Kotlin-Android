@@ -1,5 +1,6 @@
 package ma.sdop.weatherapp.data.database
 
+import ma.sdop.weatherapp.domain.datasource.ForecastDataSource
 import ma.sdop.weatherapp.domain.model.ForecastList
 import ma.sdop.weatherapp.extensions.clear
 import ma.sdop.weatherapp.extensions.parseList
@@ -12,8 +13,8 @@ import org.jetbrains.anko.db.select
  * Created by parkjoosung on 2017. 4. 25..
  */
 
-class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance, val dataMapper: DbDataMapper = DbDataMapper()) {
-    fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
+class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.instance, val dataMapper: DbDataMapper = DbDataMapper()) : ForecastDataSource {
+    override fun requestForecastByZipCode(zipCode: Long, date: Long) = forecastDbHelper.use {
         val dailyRequest = "${DayForecastTable.CITY_ID} = {id} AND ${DayForecastTable.DATE} >= {date}"
         val dailyForecast = select(DayForecastTable.NAME)
                 .where(dailyRequest, "id" to zipCode, "date" to date)
@@ -35,4 +36,6 @@ class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.insta
             dailyForecast.forEach { insert(DayForecastTable.NAME, *it.map.toVarargArray()) }
         }
     }
+
+
 }

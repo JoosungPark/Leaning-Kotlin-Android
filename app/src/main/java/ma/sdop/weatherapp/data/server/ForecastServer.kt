@@ -2,6 +2,7 @@ package ma.sdop.weatherapp.data.server
 
 import ma.sdop.weatherapp.domain.datasource.ForecastDataSource
 import ma.sdop.weatherapp.data.database.ForecastDb
+import ma.sdop.weatherapp.domain.model.Forecast
 import ma.sdop.weatherapp.domain.model.ForecastList
 
 /**
@@ -14,4 +15,6 @@ class ForecastServer(val dataMapper: ServerDataMapper = ServerDataMapper(), val 
         forecastDb.saveForecast(converted)
         return forecastDb.requestForecastByZipCode(zipCode, date)
     }
+
+    override fun requestDayForecast(id: Long): Forecast? = throw UnsupportedOperationException()
 }

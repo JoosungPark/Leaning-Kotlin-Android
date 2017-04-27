@@ -1,11 +1,9 @@
 package ma.sdop.weatherapp.data.database
 
 import ma.sdop.weatherapp.domain.datasource.ForecastDataSource
+import ma.sdop.weatherapp.domain.model.Forecast
 import ma.sdop.weatherapp.domain.model.ForecastList
-import ma.sdop.weatherapp.extensions.clear
-import ma.sdop.weatherapp.extensions.parseList
-import ma.sdop.weatherapp.extensions.parseOpt
-import ma.sdop.weatherapp.extensions.toVarargArray
+import ma.sdop.weatherapp.extensions.*
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 
@@ -25,6 +23,11 @@ class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.insta
                 .parseOpt { CityForecast(HashMap(it), dailyForecast) }
 
         if ( city != null ) dataMapper.convertToDomain(city) else null
+    }
+
+    override fun requestDayForecast(id: Long): Forecast? = forecastDbHelper.use {
+        val forecast = select(DayForecastTable.NAME).byId(id).parseOpt { DayForecast(HashMap(it)) }
+        if ( forecast != null ) dataMapper.convertDayToDomain(forecast) else null
     }
 
     fun saveForecast(forecast: ForecastList) = forecastDbHelper.use {

@@ -8,7 +8,7 @@ import ma.sdop.weatherapp.R
 import ma.sdop.weatherapp.domain.commands.RequestForecastCommand
 import ma.sdop.weatherapp.ui.adapters.ForecastListAdapter
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.uiThread
 
 
@@ -24,13 +24,14 @@ class MainActivity : AppCompatActivity() {
             val result = RequestForecastCommand(94043).execute()
             uiThread {
                 // lambda usage
-                val adapter = ForecastListAdapter(result) { toast(it.description) }
+                val adapter = ForecastListAdapter(result) {
+                    startActivity<DetailActivity>(DetailActivity.ID to it.id, DetailActivity.CITY_NAME to result.city)
+                }
                 forecastList.adapter = adapter
+                title = "${result.city} (${result.country})"
             }
         }
     }
-
-
 
 
 }

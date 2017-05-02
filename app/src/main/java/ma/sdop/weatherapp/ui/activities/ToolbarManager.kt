@@ -8,6 +8,7 @@ import ma.sdop.weatherapp.extensions.ctx
 import ma.sdop.weatherapp.extensions.slideEnter
 import ma.sdop.weatherapp.extensions.slideExit
 import ma.sdop.weatherapp.ui.App
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 /**
@@ -24,7 +25,7 @@ interface ToolbarManager {
         toolBar.inflateMenu(R.menu.menu_main)
         toolBar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_settings -> App.instance.toast("Settings")
+                R.id.action_settings -> toolBar.ctx.startActivity<SettingsActivity>()
                 else -> App.instance.toast("Unknown option")
             }
             true

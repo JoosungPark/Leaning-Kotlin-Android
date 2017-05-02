@@ -13,6 +13,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,9 +24,18 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+
+    androidTestCompile "com.android.support:support-annotations:$support_version"
+    androidTestCompile "com.android.support.test:runner:0.5"
+    androidTestCompile "com.android.support.test:runner:0.5"
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:2.2.2") {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'design'
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:recyclerview-v7:$support_version"
 
@@ -34,8 +44,10 @@ dependencies {
     compile "org.jetbrains.anko:anko-common:$anko_version"
     compile "org.jetbrains.anko:anko-sqlite:$anko_version"
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+
     testCompile 'junit:junit:4.12'
+    testCompile "org.mockito:mockito-core:2.7.0"
+
 }

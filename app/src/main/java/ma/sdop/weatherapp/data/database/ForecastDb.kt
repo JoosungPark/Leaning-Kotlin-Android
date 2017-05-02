@@ -41,7 +41,4 @@ class ForecastDb(val forecastDbHelper: ForecastDbHelper = ForecastDbHelper.insta
             dailyForecast.forEach { insert(DayForecastTable.NAME, *it.map.toVarargArray()) }
         }
     }
-
-    inline fun <T, R> with(receiver: T, f: T.() -> R): R = receiver.f()
-
 }

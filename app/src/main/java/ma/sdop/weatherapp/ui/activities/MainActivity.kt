@@ -1,19 +1,18 @@
 package ma.sdop.weatherapp.ui.activities
 
-import android.app.Service
-import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
-import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import ma.sdop.weatherapp.R
 import ma.sdop.weatherapp.domain.commands.RequestForecastCommand
 import ma.sdop.weatherapp.extensions.DelegatesExt
-import ma.sdop.weatherapp.extensions.textColor
 import ma.sdop.weatherapp.ui.adapters.ForecastListAdapter
-import org.jetbrains.anko.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.find
+import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.uiThread
 
 
 class MainActivity : AppCompatActivity(), ToolbarManager {
@@ -37,10 +36,10 @@ class MainActivity : AppCompatActivity(), ToolbarManager {
 
     private fun loadForecast() = doAsync {
         val result = RequestForecastCommand(zipCode).execute()
-
         uiThread {
             val adapter = ForecastListAdapter(result) {
-                startActivity<DetailActivity>(DetailActivity.ID to it.id, DetailActivity.CITY_NAME to result.city)
+                startActivity<DetailActivity>(DetailActivity.ID to it.id,
+                        DetailActivity.CITY_NAME to result.city)
             }
             forecastList.adapter = adapter
             toolbarTitle = "${result.city} (${result.country})"

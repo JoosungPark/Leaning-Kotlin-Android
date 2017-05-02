@@ -23,8 +23,8 @@ class DetailActivity : AppCompatActivity(), ToolbarManager {
     override val toolBar: Toolbar by lazy { find<Toolbar>(R.id.toolbar) }
 
     companion object {
-        val ID = DetailActivity.javaClass.simpleName + ":id"
-        val CITY_NAME = DetailActivity.javaClass.simpleName + ":cityName"
+        val ID = "DetailActivity:id"
+        val CITY_NAME = "DetailActivity:cityName"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

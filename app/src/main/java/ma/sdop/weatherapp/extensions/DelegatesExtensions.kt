@@ -1,6 +1,7 @@
 package ma.sdop.weatherapp.extensions
 
 import android.content.Context
+import java.lang.IllegalStateException
 import kotlin.reflect.KProperty
 
 /**
@@ -18,9 +19,10 @@ class NotNullSingleValueVar<T> {
     }
 
     operator fun setValue(thisRef: Any?, property: KProperty<*>, value: T) {
-        this.value = if (this.value == null ) value
-        else throw IllegalStateException("${property.name} alread initialized." )
+        this.value = if (this.value == null) value
+        else throw IllegalStateException("${property.name} already initialized")
     }
+
 }
 
 object DelegatesExt {

@@ -2,7 +2,6 @@ package ma.sdop.weatherapp.data.database
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import ma.sdop.weatherapp.data.server.Forecast
 import ma.sdop.weatherapp.ui.App
 import org.jetbrains.anko.db.*
 
